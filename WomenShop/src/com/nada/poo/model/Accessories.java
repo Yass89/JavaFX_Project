@@ -1,9 +1,10 @@
-package com.nada.poo;
+package com.nada.poo.model;
 
-public class Accessories extends Product{
+public class Accessories extends Product {
 
-  public Accessories(String name, double price, int nbItems) {
-    super(name, price, nbItems);
+  public Accessories(String name, double price, int nbItems,double purchasePrice) {
+
+    super(name, price, nbItems, purchasePrice);
   }
 
   @Override

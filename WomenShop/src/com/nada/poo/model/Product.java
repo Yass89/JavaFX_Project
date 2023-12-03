@@ -1,21 +1,31 @@
-package com.nada.poo;
+package com.nada.poo.model;
 
 public abstract class Product implements Discount,Comparable<Product>{
 
+  private static double capital = 10000; // Example starting capital
+  private static double cost = 0;
   private int id;
   private String name;
   private double price;
   private int nbItems;
 
+  private double purchasePrice;
+
   static int nb=0;
   static double income=0;
 
-  public Product(String name, double price, int nbItems) {
+  public Product(String name, double price, int nbItems, double purchasePrice) {
     this.id=++nb;
     this.name = name;
     //this.price = price;
     setPrice(price);
     this.nbItems = nbItems;
+    this.purchasePrice = purchasePrice;
+    if (purchasePrice > price) {
+      throw new IllegalArgumentException("Purchase price cannot be higher than selling price");
+    }
+    cost += purchasePrice;
+    capital -= purchasePrice;
   }
 
   public int getId() {

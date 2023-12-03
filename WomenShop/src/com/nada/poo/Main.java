@@ -1,14 +1,11 @@
 package com.nada.poo;
-
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.nada.poo.database.*;
 
 public class Main {
 
     public static void main(String[] args) {
         // write your code here
-        try {
+       /* try {
             Product p1 = new Shoes("s1", 10, 10,38);
             Product p2= new Clothes("c1", 20, 20, 36);
 
@@ -43,6 +40,7 @@ public class Main {
 
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
+        DatabaseSetup.databaseCreation();
     }
 }

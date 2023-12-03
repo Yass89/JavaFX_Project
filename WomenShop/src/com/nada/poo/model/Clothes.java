@@ -1,11 +1,11 @@
-package com.nada.poo;
+package com.nada.poo.model;
 
-public class Clothes extends Product{
+public class Clothes extends Product {
 
   private int size;
 
-  public Clothes(String name, double price, int nbItems, int size) {
-    super(name, price, nbItems);
+  public Clothes(String name, double price, int nbItems, int size,double purchasePrice) {
+    super(name, price, nbItems, purchasePrice);
     setSize(size);
   }
 

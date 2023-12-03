@@ -1,4 +1,4 @@
-package com.nada.poo;
+package com.nada.poo.model;
 
 public interface Discount {
   double DISCOUNT_CLOTHES=0.3;
