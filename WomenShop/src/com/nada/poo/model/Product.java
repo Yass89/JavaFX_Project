@@ -1,31 +1,22 @@
 package com.nada.poo.model;
 
 public abstract class Product implements Discount,Comparable<Product>{
-
-  private static double capital = 10000; // Example starting capital
+  private static double capital = 10000.0;
   private static double cost = 0;
   private int id;
   private String name;
   private double price;
   private int nbItems;
 
-  private double purchasePrice;
-
   static int nb=0;
   static double income=0;
 
-  public Product(String name, double price, int nbItems, double purchasePrice) {
+  public Product(String name, double price, int nbItems) {
     this.id=++nb;
     this.name = name;
     //this.price = price;
     setPrice(price);
     this.nbItems = nbItems;
-    this.purchasePrice = purchasePrice;
-    if (purchasePrice > price) {
-      throw new IllegalArgumentException("Purchase price cannot be higher than selling price");
-    }
-    cost += purchasePrice;
-    capital -= purchasePrice;
   }
 
   public int getId() {
@@ -69,20 +60,26 @@ public abstract class Product implements Discount,Comparable<Product>{
     return income;
   }
 
-  public void sell(int nbItems)throws IllegalArgumentException{
-    if(nbItems<this.nbItems) {
-      this.setNbItems(this.nbItems - nbItems);
-      income += nbItems * this.price;
-      System.out.println("Sell OK");
+  public void sellItems(int quantity, double sellPrice) {
+    if (quantity <= this.nbItems) {
+      this.nbItems -= quantity;  // Decrease stock
+      double totalIncome = sellPrice * quantity;
+      income += totalIncome;     // Increment income
+      capital += totalIncome;    // Increase capital by income
+    } else {
+      throw new IllegalArgumentException("Not enough stock to sell the requested amount.");
     }
-    else throw new IllegalArgumentException("Unavailable product");
   }
 
-  public void purchase(int nbItems)throws IllegalArgumentException{
-    if(nbItems>0){
-      this.setNbItems(this.nbItems+nbItems);
-      System.out.println("Purchase OK !");
-    }else throw new IllegalArgumentException("Purchase with negative number !!");
+  public void purchaseItems(int quantity, double purchasePrice) {
+    if (purchasePrice < this.price) {
+      this.nbItems += quantity;    // Increase stock
+      double totalCost = purchasePrice * quantity;
+      cost += totalCost;           // Increment total cost
+      capital -= totalCost;        // Decrease capital by cost
+    } else {
+      throw new IllegalArgumentException("Purchase price must be less than the sale price.");
+    }
   }
   @Override
   public String toString() {
@@ -94,8 +91,25 @@ public abstract class Product implements Discount,Comparable<Product>{
             '}';
   }
 
+  public abstract int getCategoryId();
   @Override
   public int compareTo(Product o) {
     return Double.compare(this.getPrice(), o.getPrice());
+  }
+
+  public static double getCapital() {
+    return capital;
+  }
+
+  public static void setCapital(double newCapital) {
+    capital = newCapital;
+  }
+
+  public static double getCost() {
+    return cost;
+  }
+
+  public static void setCost(double newCost) {
+    cost = newCost;
   }
 }

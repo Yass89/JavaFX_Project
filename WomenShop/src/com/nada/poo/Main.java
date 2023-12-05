@@ -1,46 +1,25 @@
 package com.nada.poo;
 import com.nada.poo.database.*;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
 
     public static void main(String[] args) {
-        // write your code here
-       /* try {
-            Product p1 = new Shoes("s1", 10, 10,38);
-            Product p2= new Clothes("c1", 20, 20, 36);
-
-            Product [] tab= new Product[2];
-            tab[0]=p1;
-            tab[1]=p2;
-            for(Product p:tab) {
-                System.out.println(p);
-            }
-
-            p1.sell(9);
-            p2.purchase(10);
-
-            System.out.println(Product.getIncome());
-
-            p1.applyDiscount();
-            p2.applyDiscount();
-
-           for(Product p:tab) {
-                System.out.println(p);
-            }
-
-            System.out.println();
-            List<Product> productList= new ArrayList<>();
-            productList.add(p2);
-            productList.add(p1);
-
-            System.out.println(productList);
-
-            productList.sort(null);
-          System.out.println(productList);
-
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }*/
-        DatabaseSetup.databaseCreation();
+            launch(args);
     }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        // create database
+        DatabaseSetup.databaseCreation();
+        Parent root = FXMLLoader.load(getClass().getResource("view/ProductView.fxml"));
+        primaryStage.setTitle("Product Management");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+    }
+
 }

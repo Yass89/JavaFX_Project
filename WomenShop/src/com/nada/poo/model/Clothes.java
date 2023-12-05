@@ -3,9 +3,10 @@ package com.nada.poo.model;
 public class Clothes extends Product {
 
   private int size;
+  private final int category_id=1;
 
-  public Clothes(String name, double price, int nbItems, int size,double purchasePrice) {
-    super(name, price, nbItems, purchasePrice);
+  public Clothes(String name, double price, int nbItems, int size) {
+    super(name, price, nbItems);
     setSize(size);
   }
 
@@ -24,6 +25,11 @@ public class Clothes extends Product {
     return "Clothes{" +super.toString()+
             " size=" + size +
             '}';
+  }
+
+  @Override
+  public int getCategoryId() {
+    return this.category_id;
   }
 
   @Override

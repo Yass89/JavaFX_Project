@@ -2,14 +2,20 @@ package com.nada.poo.model;
 
 public class Accessories extends Product {
 
-  public Accessories(String name, double price, int nbItems,double purchasePrice) {
+  private final int category_id=3;
+  public Accessories(String name, double price, int nbItems) {
 
-    super(name, price, nbItems, purchasePrice);
+    super(name, price, nbItems);
   }
 
   @Override
   public String toString() {
     return "Accessories{"+ super.toString()+"}";
+  }
+
+  @Override
+  public int getCategoryId() {
+    return this.category_id;
   }
 
   @Override

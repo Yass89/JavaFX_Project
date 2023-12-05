@@ -38,7 +38,7 @@ public class DatabaseUtil {
     public static void createNewDatabase(String dbName) {
         String sql = "CREATE DATABASE IF NOT EXISTS " + dbName;
 
-        try (Connection conn = DriverManager.getConnection(MYSQL_URL, USER, PASSWORD);
+        try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
 
             stmt.execute(sql);
@@ -47,6 +47,11 @@ public class DatabaseUtil {
         } catch (SQLException e) {
             System.out.println("Error creating database: " + e.getMessage());
         }
+    }
+
+    // get coonection
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(MYSQL_URL, USER, PASSWORD);
     }
 
     public static void executeUpdate(String sql) {
