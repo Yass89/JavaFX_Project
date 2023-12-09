@@ -38,7 +38,6 @@
             <TableColumn text="Name" fx:id="nameColumn" />
             <TableColumn text="Price" fx:id="priceColumn" />
             <TableColumn text="Stock" fx:id="stockColumn" />
-            <!-- Other columns as needed -->
         </columns>
     </TableView>
 
