@@ -26,3 +26,15 @@
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+.table-view .table-cell{
+    -fx-text-fill: black;
+}
+
+.table-view{
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #F3D9FA;
+}

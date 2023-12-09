@@ -1,0 +1,13 @@
+.combo-box .list-cell{
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+}
+
+.combo-box .list-view .list-cell{
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+}
+
+.combo-box .arrow {
+    -fx-background-color: white;
+}
