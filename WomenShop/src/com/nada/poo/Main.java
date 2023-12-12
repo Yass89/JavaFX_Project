@@ -16,7 +16,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         // create database
         DatabaseSetup.databaseCreation();
-        Parent root = FXMLLoader.load(getClass().getResource("view/ProductView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("view/EnteringPage.fxml"));
         primaryStage.setTitle("Product Management");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

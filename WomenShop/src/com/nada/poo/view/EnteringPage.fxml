@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #F3D9FA, #FFFFFF);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:controller="com.nada.poo.controller.PageController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: linear-gradient(to bottom, #F3D9FA, #FFFFFF);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Text fx:id="welcometext" layoutX="79.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME TO MELANIE &amp; YASSINE'S WOMEN'S SHOP" textAlignment="CENTER" wrappingWidth="441.45172119140625">
          <font>
@@ -20,7 +20,9 @@
             <Image url="@assets/shoplogo.png" />
          </image>
       </ImageView>
-      <Button fx:id="enterbtn" layoutX="252.0" layoutY="269.0" mnemonicParsing="false" opacity="0.94" style="-fx-background-color: linear-gradient(to bottom,#764CCD ,#451E94);" text="ENTER" textAlignment="CENTER" textFill="#f3d9fa">
+      <Button fx:id="enterbtn" layoutX="252.0" layoutY="269.0" mnemonicParsing="false"
+              opacity="0.94" style="-fx-background-color: linear-gradient(to bottom,#764CCD ,#451E94);"
+              text="ENTER" textAlignment="CENTER" textFill="#f3d9fa" onAction="#handleEnterAction">
          <font>
             <Font name="Baskerville Old Face" size="20.0" />
          </font>
