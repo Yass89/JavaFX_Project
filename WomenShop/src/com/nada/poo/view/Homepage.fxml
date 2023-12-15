@@ -96,8 +96,8 @@
                         </AnchorPane>
                         <TableView fx:id="productsTableHome" layoutX="17.0" layoutY="83.0" prefHeight="459.0" prefWidth="678.0" stylesheets="@table.css">
                            <columns>
-                              <TableColumn fx:id="idColumnHome" prefWidth="64.00003051757812" style="-fx-text-fill: fff;" text="ID" />
-                              <TableColumn fx:id="nameColumnHome" prefWidth="114.4000244140625" style="-fx-text-fill: white;" styleClass="-fx-text-fill(#fff)" text="Name" />
+                              <TableColumn fx:id="idColumnHome" prefWidth="64.00003051757812" text="ID" />
+                              <TableColumn fx:id="nameColumnHome" prefWidth="114.4000244140625" text="Name" />
                               <TableColumn fx:id="typeColumnHome" prefWidth="118.39993286132812" text="Type" />
                               <TableColumn fx:id="sizeColumnHome" prefWidth="86.40008544921875" text="Size" />
                               <TableColumn fx:id="stockColumnHome" prefWidth="106.4000244140625" text="Stock" />
@@ -136,7 +136,7 @@
                         <ComboBox fx:id="categorySelector" layoutX="169.0" layoutY="28.0" prefHeight="30.0"
                                   prefWidth="374.0" promptText="Choose Type..."
                                   style="-fx-background-color: linear-gradient(to top, #9761D5, #D085E4); -fx-border-radius: 4px; -fx-font-color: white; -fx-font-family: &quot;arial&quot;;"
-                                  stylesheets="@combobox.css" onAction="#fillcategorySelector"/>
+                                  stylesheets="@combobox.css" onAction="#filterByCategory"/>
                      </children>
                   </AnchorPane>
                </children>
