@@ -180,6 +180,9 @@ public class BuySellController extends  PageController{
             discountLabel.setText("");
             priceLabel.setText("");
             stockLabel.setText("");
+            incomesField.setText("");
+            costsField.setText("");
+            capitalField.setText("");
             // disable buttons
             sellButton.setDisable(true);
             buyButton.setDisable(true);
