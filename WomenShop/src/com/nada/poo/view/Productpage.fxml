@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:controller="com.nada.poo.controller.PageController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:controller="com.nada.poo.controller.ProductController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <AnchorPane prefHeight="200.0" prefWidth="200.0">
             <children>
@@ -76,15 +76,15 @@
                     <children>
                         <AnchorPane layoutX="331.0" layoutY="9.0" prefHeight="576.0" prefWidth="618.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5),8,0,0,0); -fx-background-radius: 8px; -fx-background-color: #ffffff;">
                             <children>
-                                <TableView layoutX="13.0" layoutY="12.0" prefHeight="553.0" prefWidth="594.0" stylesheets="@table.css">
+                                <TableView fx:id="productsTable" layoutX="13.0" layoutY="12.0" prefHeight="553.0" prefWidth="594.0" stylesheets="@table.css">
                                     <columns>
-                                        <TableColumn prefWidth="52.800018310546875" style="-fx-text-fill: fff;" text="ID" />
-                                        <TableColumn prefWidth="104.79998779296875" style="-fx-text-fill: white;" styleClass="-fx-text-fill(#fff)" text="Name" />
-                                        <TableColumn prefWidth="106.39996337890625" text="Type" />
-                                        <TableColumn prefWidth="62.4000244140625" text="Size" />
-                                        <TableColumn prefWidth="81.5999755859375" text="Stock" />
-                                        <TableColumn prefWidth="92.800048828125" text="Price" />
-                              <TableColumn prefWidth="91.199951171875" text="Discount" />
+                                        <TableColumn fx:id="idColumn" prefWidth="52.800018310546875" text="ID" />
+                                        <TableColumn fx:id="nameColumn" prefWidth="104.79998779296875"  text="Name" />
+                                        <TableColumn fx:id="typeColumn" prefWidth="106.39996337890625" text="Type" />
+                                        <TableColumn fx:id="sizeColumn" prefWidth="62.4000244140625" text="Size" />
+                                        <TableColumn fx:id="stockColumn" prefWidth="81.5999755859375" text="Stock" />
+                                        <TableColumn fx:id="priceColumn" prefWidth="92.800048828125" text="Price" />
+                              <TableColumn fx:id="discountColumn" prefWidth="91.199951171875" text="Discount" />
                                     </columns>
                                 </TableView>
                             </children>
@@ -96,7 +96,7 @@
                               <Font name="Arial" size="15.0" />
                            </font>
                         </Text>
-                        <ComboBox layoutX="118.0" layoutY="153.0" prefHeight="27.0" prefWidth="151.0" promptText="Choose..." style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
+                        <ComboBox fx:id="typeField" layoutX="118.0" layoutY="153.0" prefHeight="27.0" prefWidth="151.0" promptText="Choose..." style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
                         <Text layoutX="10.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name :" textAlignment="RIGHT" wrappingWidth="96.80000000000001">
                            <font>
                               <Font name="Arial" size="15.0" />
@@ -127,28 +127,30 @@
                               <Font name="Arial" size="15.0" />
                            </font>
                         </Text>
-                        <TextField layoutX="118.0" layoutY="53.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
-                        <TextField layoutX="118.0" layoutY="103.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
-                        <TextField layoutX="118.0" layoutY="254.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
-                        <TextField layoutX="118.0" layoutY="204.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
-                        <TextField layoutX="118.0" layoutY="304.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
-                        <ComboBox layoutX="118.0" layoutY="353.0" prefHeight="27.0" prefWidth="151.0" promptText="Choose..." style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
-                        <Button layoutX="42.0" layoutY="424.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Add" textFill="WHITE">
+                        <TextField fx:id="idField" layoutX="118.0" layoutY="53.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
+                        <TextField fx:id="nameField" layoutX="118.0" layoutY="103.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
+                        <TextField fx:id="stockField" layoutX="118.0" layoutY="254.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
+                        <TextField fx:id="sizeField" layoutX="118.0" layoutY="204.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
+                        <TextField fx:id="priceField" layoutX="118.0" layoutY="304.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
+                        <ComboBox fx:id="discountField" layoutX="118.0" layoutY="353.0" prefHeight="27.0" prefWidth="151.0" promptText="Choose..." style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
+                        <Button fx:id="addButton"
+                                onAction="#handleAdd" layoutX="42.0" layoutY="424.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Add" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="168.0" layoutY="424.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Modify" textFill="WHITE">
+                        <Button fx:id="updateButton"
+                                onAction="#handleUpdate" layoutX="168.0" layoutY="424.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Modify" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="42.0" layoutY="490.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Reset" textFill="WHITE">
+                        <Button fx:id="resetButton" layoutX="42.0" layoutY="490.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Reset" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="16.0" />
                            </font>
                         </Button>
-                        <Button layoutX="168.0" layoutY="490.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Delete" textFill="WHITE">
+                        <Button fx:id="deleteButton" onAction="#handleDelete" layoutX="168.0" layoutY="490.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Delete" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="16.0" />
                            </font>

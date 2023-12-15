@@ -1,15 +1,16 @@
 package com.nada.poo.model;
 
 public abstract class Product implements Discount,Comparable<Product>{
-  private static double capital = 10000.0;
-  private static double cost = 0;
+
+
   private int id;
   private String name;
   private double price;
   private int nbItems;
 
+  protected boolean isDiscounted=false;
+
   static int nb=0;
-  static double income=0;
 
   public Product(String name, double price, int nbItems) {
     this.id=++nb;
@@ -19,8 +20,19 @@ public abstract class Product implements Discount,Comparable<Product>{
     this.nbItems = nbItems;
   }
 
+  public Product(int id, String name, double price, int nbItems) {
+    this.id=id;
+    this.name = name;
+    setPrice(price);
+    this.nbItems = nbItems;
+  }
+
   public int getId() {
     return id;
+  }
+
+  public int setId(int id) {
+    return this.id = id;
   }
 
 
@@ -56,27 +68,21 @@ public abstract class Product implements Discount,Comparable<Product>{
     return nb;
   }
 
-  public static double getIncome() {
-    return income;
-  }
-
-  public void sellItems(int quantity, double sellPrice) {
-    if (quantity <= this.nbItems) {
-      this.nbItems -= quantity;  // Decrease stock
-      double totalIncome = sellPrice * quantity;
-      income += totalIncome;     // Increment income
-      capital += totalIncome;    // Increase capital by income
+  public void sellItems(double sellPrice) {
+    if (1 <= this.nbItems) {
+      this.nbItems -= 1;  // Decrease stock
+      Financial.income += sellPrice;     // Increment income
+      Financial.capital += sellPrice;  // Increase capital by income
     } else {
       throw new IllegalArgumentException("Not enough stock to sell the requested amount.");
     }
   }
 
-  public void purchaseItems(int quantity, double purchasePrice) {
+  public void purchaseItems(double purchasePrice) {
     if (purchasePrice < this.price) {
-      this.nbItems += quantity;    // Increase stock
-      double totalCost = purchasePrice * quantity;
-      cost += totalCost;           // Increment total cost
-      capital -= totalCost;        // Decrease capital by cost
+      this.nbItems += 1;    // Increase stock;
+      Financial.cost += purchasePrice;           // Increment total cost
+      Financial.capital -= purchasePrice;        // Decrease capital by cost
     } else {
       throw new IllegalArgumentException("Purchase price must be less than the sale price.");
     }
@@ -92,24 +98,21 @@ public abstract class Product implements Discount,Comparable<Product>{
   }
 
   public abstract int getCategoryId();
+
+  public abstract String getType();
+
+  public abstract Object getSize();
+
+  public abstract void setSize(Object size);
+
   @Override
   public int compareTo(Product o) {
     return Double.compare(this.getPrice(), o.getPrice());
   }
 
-  public static double getCapital() {
-    return capital;
+  // get discount
+  public boolean isDiscounted(){
+    return this.isDiscounted;
   }
 
-  public static void setCapital(double newCapital) {
-    capital = newCapital;
-  }
-
-  public static double getCost() {
-    return cost;
-  }
-
-  public static void setCost(double newCost) {
-    cost = newCost;
-  }
 }

@@ -15,7 +15,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<StackPane fx:controller="com.nada.poo.controller.PageController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.Label?>
+<StackPane fx:controller="com.nada.poo.controller.HomeController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -83,24 +84,25 @@
                                     <Font name="Louis George Cafe" size="15.0" />
                                  </font>
                               </Text>
-                              <TextField layoutX="25.0" layoutY="80.0" prefHeight="26.0" prefWidth="118.0">
+                              <Label fx:id="incomesField" layoutX="25.0" layoutY="80.0" prefHeight="26.0" prefWidth="118.0"
+                                     style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;">
                                  <opaqueInsets>
                                     <Insets />
                                  </opaqueInsets>
                                  <font>
                                     <Font size="14.0" />
-                                 </font></TextField>
+                                 </font></Label>
                            </children>
                         </AnchorPane>
-                        <TableView layoutX="17.0" layoutY="83.0" prefHeight="459.0" prefWidth="678.0" stylesheets="@table.css">
+                        <TableView fx:id="productsTableHome" layoutX="17.0" layoutY="83.0" prefHeight="459.0" prefWidth="678.0" stylesheets="@table.css">
                            <columns>
-                              <TableColumn prefWidth="64.00003051757812" style="-fx-text-fill: fff;" text="ID" />
-                              <TableColumn prefWidth="114.4000244140625" style="-fx-text-fill: white;" styleClass="-fx-text-fill(#fff)" text="Name" />
-                              <TableColumn prefWidth="118.39993286132812" text="Type" />
-                              <TableColumn prefWidth="86.40008544921875" text="Size" />
-                              <TableColumn prefWidth="106.4000244140625" text="Stock" />
-                              <TableColumn prefWidth="100.79998779296875" text="Price" />
-                              <TableColumn prefWidth="84.0" text="Discount" />
+                              <TableColumn fx:id="idColumnHome" prefWidth="64.00003051757812" style="-fx-text-fill: fff;" text="ID" />
+                              <TableColumn fx:id="nameColumnHome" prefWidth="114.4000244140625" style="-fx-text-fill: white;" styleClass="-fx-text-fill(#fff)" text="Name" />
+                              <TableColumn fx:id="typeColumnHome" prefWidth="118.39993286132812" text="Type" />
+                              <TableColumn fx:id="sizeColumnHome" prefWidth="86.40008544921875" text="Size" />
+                              <TableColumn fx:id="stockColumnHome" prefWidth="106.4000244140625" text="Stock" />
+                              <TableColumn fx:id="priceColumnHome" prefWidth="100.79998779296875" text="Price" />
+                              <TableColumn fx:id="discountColumnHome" prefWidth="84.0" text="Discount" />
                            </columns>
                         </TableView>
                         <AnchorPane layoutX="713.0" layoutY="213.0" prefHeight="147.0" prefWidth="168.0" style="-fx-background-color: #ffff; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5),8,0,0,0);">
@@ -110,10 +112,11 @@
                                     <Font name="Louis George Cafe" size="15.0" />
                                  </font>
                               </Text>
-                              <TextField layoutX="25.0" layoutY="80.0" prefHeight="26.0" prefWidth="118.0">
+                              <Label fx:id="capitalField" layoutX="25.0" layoutY="80.0" prefHeight="26.0" prefWidth="118.0"
+                                     style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;">
                                  <font>
                                     <Font size="14.0" />
-                                 </font></TextField>
+                                 </font></Label>
                            </children>
                         </AnchorPane>
                         <AnchorPane layoutX="713.0" layoutY="396.0" prefHeight="147.0" prefWidth="168.0" style="-fx-background-color: #ffff; -fx-background-radius: 8px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5),8,0,0,0);">
@@ -123,13 +126,17 @@
                                     <Font name="Louis George Cafe" size="15.0" />
                                  </font>
                               </Text>
-                              <TextField layoutX="25.0" layoutY="80.0" prefHeight="26.0" prefWidth="118.0">
+                              <Label fx:id="costsField" layoutX="25.0" layoutY="80.0" prefHeight="26.0" prefWidth="118.0"
+                                     style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;">
                                  <font>
                                     <Font size="14.0" />
-                                 </font></TextField>
+                                 </font></Label>
                            </children>
                         </AnchorPane>
-                        <ComboBox layoutX="169.0" layoutY="28.0" prefHeight="30.0" prefWidth="374.0" promptText="Choose Type..." style="-fx-background-color: linear-gradient(to top, #9761D5, #D085E4); -fx-border-radius: 4px; -fx-font-color: white; -fx-font-family: &quot;arial&quot;;" stylesheets="@combobox.css" />
+                        <ComboBox fx:id="categorySelector" layoutX="169.0" layoutY="28.0" prefHeight="30.0"
+                                  prefWidth="374.0" promptText="Choose Type..."
+                                  style="-fx-background-color: linear-gradient(to top, #9761D5, #D085E4); -fx-border-radius: 4px; -fx-font-color: white; -fx-font-family: &quot;arial&quot;;"
+                                  stylesheets="@combobox.css" onAction="#fillcategorySelector"/>
                      </children>
                   </AnchorPane>
                </children>

@@ -8,6 +8,21 @@ public class Accessories extends Product {
     super(name, price, nbItems);
   }
 
+    public Accessories(int id, String name, double price, int nbItems) {
+        super(id, name, price, nbItems);
+    }
+
+  public Object getSize() {
+    return null;
+  }
+
+  public void setSize(Object size) {
+  }
+
+  // get type of product
+    public String getType(){
+        return "Accessories";
+    }
   @Override
   public String toString() {
     return "Accessories{"+ super.toString()+"}";
@@ -21,6 +36,11 @@ public class Accessories extends Product {
   @Override
   public void applyDiscount() {
     this.setPrice(this.getPrice()*(1-DISCOUNT_ACCESSORIES));
-
+    this.isDiscounted=true;
   }
+
+    public void removeDiscount() {
+        this.setPrice(this.getPrice()/(1-DISCOUNT_ACCESSORIES));
+        this.isDiscounted=false;
+    }
 }

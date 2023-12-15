@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.effect.DropShadow?>
+
+<VBox fx:controller="com.nada.poo.controller.PageController" alignment="CENTER" spacing="15.0" style="-fx-background-color: linear-gradient(to bottom, #EEF2F3, #FFFFFF); -fx-padding: 20; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 10, 0, 0, 0);" xmlns:fx="http://javafx.com/fxml">
+    <Label fx:id="errorMessage" text="Error message goes here" wrapText="true" style="-fx-font-size: 14px; -fx-font-family: 'Arial'; -fx-text-fill: #333;">
+    </Label>
+    <Button fx:id="buttonError" text="OK" onAction="#closePopup" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4); -fx-text-fill: white; -fx-font-family: 'Arial'; -fx-font-size: 16px; -fx-border-radius: 5; -fx-background-radius: 5;">
+    </Button>
+</VBox>

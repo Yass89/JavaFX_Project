@@ -8,135 +8,245 @@ import java.util.List;
 
 public class ProductDaoImpl {
 
-    // Retrieves all products and their stock from the products table.
-    public List<Product> getAllProducts() throws SQLException {
-        List<Product> products = new ArrayList<>();
-        String sql = "SELECT * FROM products";
 
-        try (Connection conn = DatabaseUtil.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+    public static List<Product> products = new ArrayList<>();
 
-            while (rs.next()) {
-                Product product = parseResultSetToProduct(rs);
-                if (product != null) {
-                    products.add(product);
-                }
-            }
+static  {
+    try {
+        products = getProductsFromDatabase();
+        fillCategories();
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+}
+
+// fill categorie table in the database
+    public static void fillCategories() throws SQLException {
+        // check if the categories table is empty
+        String sql = "SELECT * FROM categories";
+        Connection connection = DatabaseUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet rs = statement.executeQuery();
+        if (rs.next()) {
+            return;
         }
+        sql = "INSERT INTO categories (category_id, category_name) VALUES (1, 'Clothes'), (2, 'Shoes'), (3, 'Accessories')";
+        DatabaseUtil.executeUpdate(sql);
+    }
+
+    public static List<Product> getProducts() {
         return products;
     }
 
-    // Inserts a new product into the products table.
-    public void addProduct(Product product) throws SQLException {
-        String sql = "INSERT INTO products (name, price, stock, category_id) VALUES (?, ?, ?, ?)";
-
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, product.getName());
-            pstmt.setDouble(2, product.getPrice());
-            pstmt.setInt(3, product.getNbItems());
-            pstmt.setInt(4, product.getCategoryId());
-            pstmt.executeUpdate();
+    public static List<Product> getProductsByCategory(String category) {
+        List<Product> productsByCategory = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getType().equals(category)) {
+                productsByCategory.add(product);
+            }
         }
+        return productsByCategory;
     }
 
-    // Updates an existing product in the products table.
-    public void updateProduct(Product product) throws SQLException {
-        String sql = "UPDATE products SET name = ?, price = ?, stock = ?, category_id = ? WHERE product_id = ?";
-
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, product.getName());
-            pstmt.setDouble(2, product.getPrice());
-            pstmt.setInt(3, product.getNbItems());
-            pstmt.setInt(4, product.getCategoryId());
-            pstmt.setInt(5, product.getId());
-            pstmt.executeUpdate();
+    public static List<Product> getProductsByName(String name) {
+        List<Product> productsByName = new ArrayList<>();
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                productsByName.add(product);
+            }
         }
+        return productsByName;
     }
 
-    // Deletes a product from the products table.
-    public void deleteProduct(int productId) throws SQLException {
-        String sql = "DELETE FROM products WHERE product_id = ?";
-
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, productId);
-            pstmt.executeUpdate();
-        }
-    }
-
-    // Sells items, updating stock and incomes accordingly, and recording the transaction.
-    public void sellProduct(int productId, int quantity, double sellPrice) throws SQLException {
-        Product product = getProductById(productId);
-        if (product == null) {
-            throw new SQLException("Product not found with ID: " + productId);
-        }
-        product.sellItems(quantity,sellPrice); // Using the sell method from the Product class
-        updateProduct(product); // Update the product database record
-    }
-
-    // Purchases items, updating stock and costs accordingly, and recording the transaction.
-    public void purchaseProduct(int productId, int quantity, double purchasePrice) throws SQLException {
-        Product product = getProductById(productId);
-        if (product == null) {
-            throw new SQLException("Product not found with ID: " + productId);
-        }
-        product.purchaseItems(quantity, purchasePrice); // Using the purchase method from the Product class
-        updateProduct(product); // Update the product database record
-    }
-
-    // Applies a discount to a product based on its category.
-    public void applyDiscount(int productId) throws SQLException {
-        Product product = getProductById(productId);
-        if (product == null) {
-            throw new SQLException("Product not found with ID: " + productId);
-        }
-        product.applyDiscount(); // Using the applyDiscount method from the Product class
-        updateProduct(product); // Update the product database record
-    }
-
-    // Parses a ResultSet into a Product object.
-    private Product parseResultSetToProduct(ResultSet rs) throws SQLException {
-        // Implementation details would depend on the actual subclasses and their constructors.
-        int productId = rs.getInt("product_id");
-        String productName = rs.getString("name");
-        double productPrice = rs.getDouble("price");
-        int productStock = rs.getInt("stock");
-        int categoryId = rs.getInt("category_id");
-
-        // Based on category, create the right subclass of Product
-        switch (categoryId) {
-            case 1:
-                // Assuming Clothes constructor
-                return new Clothes(productName, productPrice, productStock, /* Size */ 0);
-            case 2:
-                // Assuming Shoes constructor
-                return new Shoes(productName, productPrice, productStock, /* ShoeSize */ 0);
-            case 3:
-                // Assuming the Accessories constructor
-                return new Accessories(productName, productPrice, productStock);
-            default:
-                return null;
-        }
-    }
-
-    // Utility method to get a Product by ID
-    private Product getProductById(int productId) throws SQLException {
-        String sql = "SELECT * FROM products WHERE product_id = ?";
-        try (Connection conn = DatabaseUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, productId);
-
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    return parseResultSetToProduct(rs);
-                }
+    public static Product getProductById(int id) {
+        for (Product product : products) {
+            if (product.getId() == id) {
+                return product;
             }
         }
         return null;
+}
+    public static void addProduct(Product product) {
+        ProductDaoImpl.products.add(product);
+        addProductDatabase(product);
     }
 
-    // Additional unimplemented methods: removeDiscount, getFinancialData, and validateProductData.
+    public static void deleteProduct(int i) {
+        Product product = getProductById(i);
+        ProductDaoImpl.products.remove(product);
+        deleteProductDatabase(product);
+    }
+
+    public static void deleteProductNoDatabase(int i) {
+        Product product = getProductById(i);
+        ProductDaoImpl.products.remove(product);
+    }
+
+    public static void updateProduct(int id,Product product) {
+        System.out.println(product.getPrice());
+        ProductDaoImpl.products.add(product);
+        updateProductDatabase(id,product);
+    }
+
+
+    // update the database with the products list
+    public static void updateDatabase() {
+
+        // delete all the products from the database, beggining with categories
+        String sql = "DELETE FROM categories";
+        DatabaseUtil.executeUpdate(sql);
+        sql = "DELETE FROM products";
+        DatabaseUtil.executeUpdate(sql);
+
+        // create the categories by checking redumbdance in products
+        List<Integer> categories = new ArrayList<>();
+        for (Product product : ProductDaoImpl.products) {
+            if (!categories.contains(product.getCategoryId())) {
+                categories.add(product.getCategoryId());
+                sql = "INSERT INTO categories (category_id, category_name) VALUES (" + product.getCategoryId() + ", '" + product.getType() + "')";
+                DatabaseUtil.executeUpdate(sql);
+            }
+            sql = "INSERT INTO products (name, price, stock, category_id) VALUES ('" + product.getName() + "', " + product.getPrice() + ", " + product.getNbItems() + ", " + product.getCategoryId() + ")";
+            DatabaseUtil.executeUpdate(sql);
+        }
+
+        // update financials to 1000 capital, 0 income and 0 cost
+        sql = "UPDATE financials SET capital = 1000 , total_income = 0, total_cost = 0";
+        DatabaseUtil.executeUpdate(sql);
+    }
+
+    // get product by category from the database
+    public static List<Product> getProductsByCategoryFromDatabase(String category) throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM products WHERE category_id = (SELECT category_id FROM categories WHERE category_name = '" + category + "')";
+        Connection connection = DatabaseUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet rs = statement.executeQuery();
+        try {
+            while (rs.next()) {
+                // check the category of the product
+                int category_id = rs.getInt("category_id");
+                switch (category_id) {
+                    case 1:
+                        products.add(new Clothes(rs.getString("name"), rs.getDouble("price"), rs.getInt("stock"), rs.getInt("size")));
+                        break;
+                    case 2:
+                        products.add(new Shoes(rs.getString("name"), rs.getDouble("price"), rs.getInt("stock"), rs.getInt("size")));
+                        break;
+                    case 3:
+                        products.add(new Accessories(rs.getString("name"), rs.getDouble("price"), rs.getInt("stock")));
+                        break;
+                }
+                // check if the product has a discount
+                String discount = rs.getString("discount");
+                if (discount.equals("Yes")) {
+                    products.get(products.size() - 1).applyDiscount();
+                }
+            }
+            return products;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // get category id from the database
+    public static int getCategoryIdFromDatabase(String category) throws SQLException {
+        String sql = "SELECT category_id FROM categories WHERE category_name = '" + category + "'";
+        Connection connection = DatabaseUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet rs = statement.executeQuery();
+        try {
+            while (rs.next()) {
+                return rs.getInt("category_id");
+            }
+            return 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+
+    // update one product in the database
+    public static void updateProductDatabase(int i,Product p) {
+        // check if the product has a discount
+        String discount = "No";
+        if (p.isDiscounted()) {
+            discount = "Yes";
+        }
+        String sql = "UPDATE products SET name = ?, price = ?, stock = ?, size = ?, category_id = ?, discount = ? WHERE product_id = ?";
+        DatabaseUtil.executeUpdate(sql, p.getName(), p.getPrice(), p.getNbItems(),p.getSize(), p.getCategoryId(), discount, i);
+    }
+
+    // add one product in the database
+    public static void addProductDatabase(Product p) {
+        // check if the product has a discount
+        String discount = "No";
+        if (p.isDiscounted()) {
+            discount = "Yes";
+        }
+        String sql = "INSERT INTO products (name, price, stock, size, category_id,discount) VALUES (?, ?, ?, ?,?,?)";
+        DatabaseUtil.executeUpdate(sql, p.getName(), p.getPrice(), p.getNbItems(),p.getSize(), p.getCategoryId(), discount);
+    }
+
+    // delete one product in the database
+    public static void deleteProductDatabase(Product p) {
+        String sql = "DELETE FROM products WHERE product_id = ?";
+        DatabaseUtil.executeUpdate(sql, p.getId());
+    }
+
+    // get all the products from the database
+    public static List<Product> getProductsFromDatabase() throws SQLException {
+        List<Product> products = new ArrayList<>();
+        String sql = "SELECT * FROM products";
+        Connection connection = DatabaseUtil.getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet rs = statement.executeQuery(sql);
+        try {
+            while (rs.next()) {
+                // check the category of the product
+                int category_id = rs.getInt("category_id");
+                switch (category_id) {
+                    case 1:
+                        products.add(new Clothes(rs.getInt("product_id"),rs.getString("name"), rs.getDouble("price"), rs.getInt("stock"), rs.getInt("size")));
+                        break;
+                    case 2:
+                        products.add(new Shoes(rs.getInt("product_id"),rs.getString("name"), rs.getDouble("price"), rs.getInt("stock"), rs.getInt("size")));
+                        break;
+                    case 3:
+                        products.add(new Accessories(rs.getInt("product_id"),rs.getString("name"), rs.getDouble("price"), rs.getInt("stock")));
+                        break;
+                }
+                // check if the product has a discount
+                String discount = rs.getString("discount");
+                if (discount.equals("Yes")) {
+                    products.get(products.size() - 1).applyDiscount();
+                }
+            };
+            return products;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // get all the categories from the database
+    public static List<String> getCategoriesFromDatabase() throws SQLException {
+        List<String> categories = new ArrayList<>();
+        String sql = "SELECT * FROM categories";
+        Connection connection = DatabaseUtil.getConnection();
+        PreparedStatement statement = connection.prepareStatement(sql);
+        ResultSet rs = statement.executeQuery();
+        try {
+            while (rs.next()) {
+                categories.add(rs.getString("category_name"));
+            }
+            return categories;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

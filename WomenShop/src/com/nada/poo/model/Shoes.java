@@ -10,12 +10,22 @@ public class Shoes extends Product {
     this.shoeSize = shoeSize;
   }
 
-  public int getShoeSize() {
+    public Shoes(int id, String name, double price, int nbItems, int shoeSize) {
+        super(id, name, price, nbItems);
+        this.shoeSize = shoeSize;
+    }
+
+    // get type of product
+  public String getType(){
+    return "Shoes";
+  }
+
+  public Object getSize() {
     return shoeSize;
   }
 
-  public void setShoeSize(int shoeSize) {
-    this.shoeSize = shoeSize;
+  public void setSize(Object shoeSize) {
+    this.shoeSize = (int) shoeSize;
   }
 
   @Override
@@ -33,6 +43,11 @@ public class Shoes extends Product {
   @Override
   public void applyDiscount() {
     this.setPrice(this.getPrice()*(1-DISCOUNT_SHOES));
+    this.isDiscounted=true;
+  }
 
+  public void removeDiscount() {
+    this.setPrice(this.getPrice()/(1-DISCOUNT_SHOES));
+    this.isDiscounted=false;
   }
 }
