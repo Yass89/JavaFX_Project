@@ -71,7 +71,6 @@ public class ProductController extends PageController {
         }
         // check if the id is empty if not show error
         if (!idField.getText().isEmpty()) {
-            System.out.println(idField.getText());
             showError("Please don't enter an id if you want to add a product");
             return;
         }
@@ -201,7 +200,6 @@ public class ProductController extends PageController {
             String type = typeField.getValue();
             String discount = discountField.getValue();
             double price = Double.parseDouble(priceField.getText());
-            System.out.println(price);
             int stock = Integer.parseInt(stockField.getText());
             int id = Integer.parseInt(idField.getText());
             // take the previous product from the database with the id
@@ -230,7 +228,6 @@ public class ProductController extends PageController {
                     ProductDaoImpl.deleteProductNoDatabase(id);
                     // set the new product with the new values
                     product = new Clothes(id,name, price, stock, size);
-                    System.out.println(product.getPrice());
                     if (!product.isDiscounted() && discount.equals("Yes")) {
                         product.applyDiscount();
                     } else if ( product.isDiscounted() && discount.equals("No")) {
@@ -268,7 +265,6 @@ public class ProductController extends PageController {
                     ProductDaoImpl.deleteProductNoDatabase(id);
                     product = new Accessories(id,name, price, stock);
                     // check the discount
-                    System.out.println(product.getPrice()+"hello");
                     if (!product.isDiscounted() && discount.equals("Yes")) {
                         product.applyDiscount();
                     } else if ( product.isDiscounted() && discount.equals("No")) {
@@ -277,7 +273,6 @@ public class ProductController extends PageController {
                     break;
             }
             // update product in database
-            System.out.println(product.getPrice());
             ProductDaoImpl.updateProduct(id, product);
             loadProducts();
         } catch (Exception e) {
