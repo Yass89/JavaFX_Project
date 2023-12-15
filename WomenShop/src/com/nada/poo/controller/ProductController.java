@@ -323,11 +323,22 @@ public class ProductController extends PageController {
         productsTable.setItems(observableList);
         displayProductsInTable();
     }
-
-    private void displayProducts() {
-        // Display each product in the tableview
-        //idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty().asObject());
-
+@FXML
+    protected void ResetAllDatas(ActionEvent event) {
+        try {
+            ProductDaoImpl.reset();
+            loadProducts();
+            // clear all the fields
+            idField.setText("");
+            nameField.setText("");
+            typeField.setValue("Choose...");
+            sizeField.setText("");
+            discountField.setValue("Choose...");
+            priceField.setText("");
+            stockField.setText("");
+        } catch (SQLException e) {
+            showError(e.getMessage());
+        }
     }
 
 

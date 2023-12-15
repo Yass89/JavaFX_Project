@@ -145,7 +145,8 @@
                               <Font name="Arial" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="resetButton" layoutX="42.0" layoutY="490.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Reset" textFill="WHITE">
+                        <Button fx:id="resetButton"
+                                onAction="#ResetAllDatas" layoutX="42.0" layoutY="490.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Reset" textFill="WHITE">
                            <font>
                               <Font name="Arial" size="16.0" />
                            </font>

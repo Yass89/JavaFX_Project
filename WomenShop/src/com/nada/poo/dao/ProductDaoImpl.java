@@ -90,7 +90,7 @@ static  {
 
 
     // update the database with the products list
-    public static void updateDatabase() {
+    public static void reset() throws SQLException {
 
         // delete all the products from the database, beggining with categories
         String sql = "DELETE FROM categories";
@@ -98,17 +98,8 @@ static  {
         sql = "DELETE FROM products";
         DatabaseUtil.executeUpdate(sql);
 
-        // create the categories by checking redumbdance in products
-        List<Integer> categories = new ArrayList<>();
-        for (Product product : ProductDaoImpl.products) {
-            if (!categories.contains(product.getCategoryId())) {
-                categories.add(product.getCategoryId());
-                sql = "INSERT INTO categories (category_id, category_name) VALUES (" + product.getCategoryId() + ", '" + product.getType() + "')";
-                DatabaseUtil.executeUpdate(sql);
-            }
-            sql = "INSERT INTO products (name, price, stock, category_id) VALUES ('" + product.getName() + "', " + product.getPrice() + ", " + product.getNbItems() + ", " + product.getCategoryId() + ")";
-            DatabaseUtil.executeUpdate(sql);
-        }
+        products.clear();
+        fillCategories();
 
         // update financials to 1000 capital, 0 income and 0 cost
         sql = "UPDATE financials SET capital = 1000 , total_income = 0, total_cost = 0";
