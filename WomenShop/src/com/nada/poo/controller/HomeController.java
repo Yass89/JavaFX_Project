@@ -125,8 +125,6 @@ public class HomeController extends PageController {
 
     // show financial data from the database
     public void fillFinancialFields() throws SQLException {
-        //
-        FinancialDaoImpl.createFinancials();
         // connect to the database
         Connection connection = DatabaseUtil.getConnection();
         // get the financial data from the database

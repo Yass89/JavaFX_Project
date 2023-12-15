@@ -20,6 +20,10 @@ static  {
     }
 }
 
+// setter for products
+    public static void setProducts(List<Product> products) {
+        ProductDaoImpl.products = products;
+    }
 // fill categorie table in the database
     public static void fillCategories() throws SQLException {
         // check if the categories table is empty

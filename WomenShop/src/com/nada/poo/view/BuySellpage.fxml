@@ -73,11 +73,11 @@
                     <children>
                         <AnchorPane layoutX="331.0" layoutY="188.0" prefHeight="398.0" prefWidth="618.0" style="-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5),8,0,0,0); -fx-background-radius: 8px; -fx-background-color: #ffffff;">
                             <children>
-                                <TableView layoutX="12.0" layoutY="14.0" prefHeight="370.0" prefWidth="594.0" stylesheets="@table.css">
+                                <TableView fx:id="productsTable" layoutX="12.0" layoutY="14.0" prefHeight="370.0" prefWidth="594.0" stylesheets="@table.css">
                                     <columns>
-                                        <TableColumn fx:id="idColumn" prefWidth="52.800018310546875" style="-fx-text-fill: fff;" text="ID" />
+                                        <TableColumn fx:id="idColumn" prefWidth="52.800018310546875" text="ID" />
                                         <TableColumn fx:id="nameColumn" prefWidth="104.79998779296875"
-                                                     style="-fx-text-fill: white;" styleClass="-fx-text-fill(#fff)" text="Name" />
+                                                     text="Name" />
                                         <TableColumn fx:id="typeColumn" prefWidth="106.39996337890625" text="Type" />
                                         <TableColumn fx:id="sizeColumn" prefWidth="62.4000244140625" text="Size" />
                                         <TableColumn fx:id="stockColumn" prefWidth="81.5999755859375" text="Stock" />
@@ -127,21 +127,24 @@
                                 </Text>
                                 <Label fx:id="idLabel" layoutX="118.0" layoutY="53.0" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
                                 <Label fx:id="nameLabel" layoutX="118.0" layoutY="103.0" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
-                                <Label fx:id="sizeLabel" layoutX="118.0" layoutY="254.0" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
-                                <Label fx:id="stockLabel" layoutX="118.0" layoutY="204.0" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
-                                <Label fx:id="priceLabel" layoutX="118.0" layoutY="304.0" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
+                                <Label fx:id="stockLabel" layoutX="118.0" layoutY="254.0" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
+                                <Label fx:id="sizeLabel" layoutX="118.0" layoutY="204.0" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
+                                <TextField fx:id="priceLabel" layoutX="118.0" layoutY="304.0" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
                                 <Label fx:id="discountLabel" layoutX="118.0" layoutY="353.0" prefHeight="27.0" prefWidth="151.0" style="-fx-background-color: transparent; -fx-border-color: #737373; -fx-border-radius: 4px;" />
-                                <Button fx:id="buyButton" disable="true" layoutX="42.0" layoutY="424.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Buy" textFill="WHITE">
+                                <Button fx:id="buyButton"
+                                        onAction="#handleBuyAction" disable="true" layoutX="42.0" layoutY="424.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Buy" textFill="WHITE">
                                     <font>
                                         <Font name="Arial" size="16.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="sellButton" disable="true" layoutX="165.0" layoutY="424.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Sell" textFill="WHITE">
+                                <Button fx:id="sellButton"
+                                        onAction="#handleSellAction" disable="true" layoutX="165.0" layoutY="424.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Sell" textFill="WHITE">
                                     <font>
                                         <Font name="Arial" size="16.0" />
                                     </font>
                                 </Button>
-                                <Button layoutX="104.0" layoutY="492.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Reset" textFill="WHITE">
+                                <Button layoutX="104.0"
+                                        onAction="#handleResetAction" layoutY="492.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="86.0" style="-fx-background-color: linear-gradient(to top, #764CCD, #D186E4);" text="Reset" textFill="WHITE">
                                     <font>
                                         <Font name="Arial" size="16.0" />
                                     </font>

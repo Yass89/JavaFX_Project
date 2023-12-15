@@ -17,6 +17,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class ProductController extends PageController {
@@ -367,7 +368,7 @@ public class ProductController extends PageController {
                 break;
         }
         discountField.setValue(product.isDiscounted() ? "Yes" : "No");
-        priceField.setText(String.format("%.2f", product.getPrice()));
+        priceField.setText(String.format(Locale.US, "%.2f", product.getPrice()));
         stockField.setText(String.valueOf(product.getNbItems()));
     }
 
